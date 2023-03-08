@@ -88,7 +88,7 @@ async function computeDistanceDuration({ origin, destination }) {
 }
 
 async function main() {
-  const now = dayjs();
+  const now = dayjs().utc();
   const allRes = await Promise.all(conf.origins.map(async (origin) => {
     const res = await computeDistanceDuration({
       origin: origin.placeId,
