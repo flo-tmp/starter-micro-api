@@ -1,6 +1,8 @@
 const {Client} = require("@googlemaps/google-maps-services-js");
 const { GoogleSpreadsheet } = require('google-spreadsheet');
 const dayjs = require('dayjs');
+const utc = require('dayjs/plugin/utc')
+dayjs.extend(utc)
 require('dayjs/locale/fr');
 
 const conf = {
@@ -88,7 +90,7 @@ async function computeDistanceDuration({ origin, destination }) {
 }
 
 async function main() {
-  const now = dayjs().utc();
+  const now = dayjs().utc('z');
   const allRes = await Promise.all(conf.origins.map(async (origin) => {
     const res = await computeDistanceDuration({
       origin: origin.placeId,
