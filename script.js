@@ -51,7 +51,6 @@ const conf = {
       } else if (h === 8) {
         return m <= 22
       } else {
-        console.log(h, m)
         return false
       }
     },
