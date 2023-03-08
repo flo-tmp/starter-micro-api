@@ -1,13 +1,14 @@
+require('dotenv').config()
 const http = require("http");
 const {main} = require('./script');
 
 http
-  .createServer(function (req, res) {
+  .createServer(async function (req, res) {
     console.log(`Just got a request at ${req.url}!`);
 
-    const data = main();
+    const isError = await main();
 
-    res.write(data);
+    res.write(isError ? 'ok' : 'nok');
     res.end();
   })
   .listen(process.env.PORT || 3000);
