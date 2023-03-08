@@ -109,7 +109,7 @@ async function main() {
   const results = allRes.filter((r) => !r.error);
 
   await writeInSheet(results.map((r) => ({
-    time: now.utc().tz('Europe/Paris').format('HH:mm'),
+    time: now.utc().tz('Europe/Paris').format('DD/MM/YYYY HH:mm'),
     origin: r.origin.name,
     destination: r.destination.name,
     distance: r.distance.value,
