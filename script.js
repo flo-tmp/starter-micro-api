@@ -44,19 +44,20 @@ const conf = {
   ],
   ranges: {
     isAller: (d) => {
-      const h = d.utc().tz('Europe/Paris').hours();
-      const m = d.utc().tz('Europe/Paris').minutes();
+      const h = d.utc().tz('Europe/Paris').hour();
+      const m = d.utc().tz('Europe/Paris').minute();
       if (h === 7) {
         return m >= 18;
       } else if (h === 8) {
         return m <= 22
       } else {
+        console.log(h, m)
         return false
       }
     },
     isRetour: (d) => {
-      const h = d.utc().tz('Europe/Paris').hours();
-      const m = d.utc().tz('Europe/Paris').minutes();
+      const h = d.utc().tz('Europe/Paris').hour();
+      const m = d.utc().tz('Europe/Paris').minute();
       if (h === 17) {
         return m >= 28;
       } else if (h === 18) {
