@@ -91,7 +91,12 @@ async function computeDistanceDuration({ origin, destination }) {
   }
 }
 
-async function main() {
+async function main(callProtection) {
+  if (callProtection !== process.env.CALL_PROTECTION) {
+    console.error('Wrong call protection', callProtection)
+    return false;
+  }
+
   const now = dayjs();
   const allRes = await Promise.all(conf.origins.map(async (origin) => {
     const res = await computeDistanceDuration({

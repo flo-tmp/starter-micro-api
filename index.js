@@ -6,7 +6,7 @@ http
   .createServer(async function (req, res) {
     console.log(`Just got a request at ${req.url}!`);
 
-    const isError = await main();
+    const isError = await main(req.rawHeaders['x-call-protection']);
 
     res.write(isError ? 'ok' : 'nok');
     res.end();
