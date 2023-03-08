@@ -134,15 +134,24 @@ async function main(headers) {
   }
 
   const allRes = await Promise.all(conf.origins.map(async (origin) => {
+    let a, b;
+    if (type === 'aller') {
+      a = origin;
+      b = conf.destination;
+    } else {
+      a = conf.destination;
+      b = origin;
+    }
+
     const res = await computeDistanceDuration({
-      origin: origin.placeId,
-      destination: conf.destination.placeId
+      origin: a.placeId,
+      destination: b.placeId
     })
 
     return {
       ...res,
-      origin,
-      destination: conf.destination
+      origin: a,
+      destination: b
     }
   }));
 
