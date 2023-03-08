@@ -2,7 +2,9 @@ const {Client} = require("@googlemaps/google-maps-services-js");
 const { GoogleSpreadsheet } = require('google-spreadsheet');
 const dayjs = require('dayjs');
 const utc = require('dayjs/plugin/utc')
+const timezone = require('dayjs/plugin/timezone')
 dayjs.extend(utc)
+dayjs.extend(timezone)
 require('dayjs/locale/fr');
 
 const conf = {
@@ -90,7 +92,7 @@ async function computeDistanceDuration({ origin, destination }) {
 }
 
 async function main() {
-  const now = dayjs().utc('z');
+  const now = dayjs();
   const allRes = await Promise.all(conf.origins.map(async (origin) => {
     const res = await computeDistanceDuration({
       origin: origin.placeId,
@@ -107,7 +109,7 @@ async function main() {
   const results = allRes.filter((r) => !r.error);
 
   await writeInSheet(results.map((r) => ({
-    time: now.locale('fr').format('DD/MM/YYYY HH:mm'),
+    time: now.utc().tz('Europe/Paris').format('HH:mm'),
     origin: r.origin.name,
     destination: r.destination.name,
     distance: r.distance.value,
