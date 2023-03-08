@@ -6,9 +6,9 @@ http
   .createServer(async function (req, res) {
     console.log(`Just got a request at ${req.url}!`);
 
-    const isError = await main(req.headers['x-call-protection']);
+    const mainResponse = await main(req.headers);
 
-    res.write(isError ? 'ok' : 'nok');
+    res.write(mainResponse);
     res.end();
   })
   .listen(process.env.PORT || 3000);

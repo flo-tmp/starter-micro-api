@@ -41,7 +41,31 @@ const conf = {
       name: 'Montluel',
       placeId: 'place_id:ChIJJ8lL4-a59EcRToCv5v9Ghi4'
     },
-  ]
+  ],
+  ranges: {
+    isAller: (d) => {
+      const h = d.utc().tz('Europe/Paris').hours();
+      const m = d.utc().tz('Europe/Paris').minutes();
+      if (h === 7) {
+        return m >= 18;
+      } else if (h === 8) {
+        return m <= 22
+      } else {
+        return false
+      }
+    },
+    isRetour: (d) => {
+      const h = d.utc().tz('Europe/Paris').hours();
+      const m = d.utc().tz('Europe/Paris').minutes();
+      if (h === 17) {
+        return m >= 28;
+      } else if (h === 18) {
+        return m <= 32
+      } else {
+        return false
+      }
+    }
+  }
 };
 
 const client = new Client();
@@ -56,6 +80,7 @@ async function writeInSheet(objects) {
     await gDoc.loadInfo();
     const sheet = gDoc.sheetsByTitle['DATA'];
     await sheet.addRows(objects.map((o) => ({
+      'type': o.type,
       'time': o.time,
       'origin': o.origin,
       'destination': o.destination,
@@ -91,13 +116,22 @@ async function computeDistanceDuration({ origin, destination }) {
   }
 }
 
-async function main(callProtection) {
-  if (callProtection !== process.env.CALL_PROTECTION) {
+async function main(headers) {
+  if (headers['x-call-protection'] !== process.env.CALL_PROTECTION) {
     console.error('Wrong call protection', callProtection)
-    return false;
+    return 'error';
   }
 
   const now = dayjs();
+  let type = conf.ranges.isAller(now) ? 'aller' : (conf.ranges.isRetour(now) ? 'retour' : undefined);
+  if (headers['x-bypass-type']) {
+    type = headers['x-bypass-type'];
+  }
+
+  if (type === undefined) {
+    return 'noAllerNorRetour';
+  }
+
   const allRes = await Promise.all(conf.origins.map(async (origin) => {
     const res = await computeDistanceDuration({
       origin: origin.placeId,
@@ -121,9 +155,10 @@ async function main(callProtection) {
     distanceText: r.distance.text,
     duration: r.duration.value,
     durationText: r.duration.text,
+    type,
   })));
 
-  return true;
+  return 'ok';
 }
 
 module.exports = { main }
