@@ -88,6 +88,8 @@ async function writeInSheet(objects) {
       'distanceText': o.distanceText,
       'duration': o.duration,
       'durationText': o.durationText,
+      'durationInTraffic': o.durationInTraffic,
+      'durationInTrafficText': o.durationInTrafficText,
     })))
     return {error: false}
   } catch (e) {
@@ -105,11 +107,12 @@ async function computeDistanceDuration({ origin, destination }) {
         mode: 'driving',
         language: 'fr',
         units: 'metric',
+        departure_time: 'now',
         key: process.env.GMAPS_API_KEY
       }
     })
-    const {distance, duration} = res.data.routes[0].legs[0];
-    return {error: false, distance, duration}
+    const {distance, duration, duration_in_traffic} = res.data.routes[0].legs[0];
+    return {error: false, distance, duration, durationInTraffic: duration_in_traffic}
   } catch (e) {
     console.error(e);
     return {error: true, err: e}
@@ -164,6 +167,8 @@ async function main(headers) {
     distanceText: r.distance.text,
     duration: r.duration.value,
     durationText: r.duration.text,
+    durationInTraffic: r.durationInTraffic.value,
+    durationInTrafficText: r.durationInTraffic.text,
     type,
   })));
 
