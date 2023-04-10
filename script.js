@@ -58,7 +58,7 @@ const conf = {
       placeId: 'place_id:ChIJWV7pE-a89EcRtAwjU0fAJFk'
     },
     {
-      name: 'Saint-Croix',
+      name: 'Sainte-Croix',
       placeId: 'place_id:ChIJs3qn5We69EcRUAXC5CqrCAQ'
     },
   ],
