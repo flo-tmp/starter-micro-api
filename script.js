@@ -12,7 +12,7 @@ const conf = {
     name: 'Esker',
     placeId: 'place_id:ChIJlyjGPpHq9EcRci0IZ8Aa_Rw'
   },
-  origins: [
+  origins: [ // calcul des placeIds => https://developers.google.com/maps/documentation/places/web-service/place-id
     {
       name: 'Beynost',
       placeId: 'place_id:ChIJsd1H7Rq59EcRA9yuP0D38fs'
@@ -41,26 +41,44 @@ const conf = {
       name: 'Montluel',
       placeId: 'place_id:ChIJJ8lL4-a59EcRToCv5v9Ghi4'
     },
+    {
+      name: 'Tramoyes',
+      placeId: 'place_id:ChIJtc6azga89EcR2dl2dVbFyNo'
+    },
+    {
+      name: 'Mionnay',
+      placeId: 'place_id:ChIJBxzR17m99EcRkArC5CqrCAQ'
+    },
+    {
+      name: 'Les Échets',
+      placeId: 'place_id:ChIJTflb3XS-9EcR4G_TYC2rCAo'
+    },
+    {
+      name: 'Saint-André-de-Corcy',
+      placeId: 'place_id:ChIJWV7pE-a89EcRtAwjU0fAJFk'
+    },
+    {
+      name: 'Saint-Croix',
+      placeId: 'place_id:ChIJs3qn5We69EcRUAXC5CqrCAQ'
+    },
   ],
   ranges: {
-    isAller: (d) => {
+    isAller: (d) => { // 7h15 => 7h45
       const h = d.utc().tz('Europe/Paris').hour();
       const m = d.utc().tz('Europe/Paris').minute();
       if (h === 7) {
-        return m >= 18;
-      } else if (h === 8) {
-        return m <= 22
+        return m >= 12 && m <= 48;
       } else {
         return false
       }
     },
-    isRetour: (d) => {
+    isRetour: (d) => { // 17h45 => 18h15
       const h = d.utc().tz('Europe/Paris').hour();
       const m = d.utc().tz('Europe/Paris').minute();
       if (h === 17) {
-        return m >= 28;
+        return m >= 42;
       } else if (h === 18) {
-        return m <= 32
+        return m <= 18
       } else {
         return false
       }
