@@ -61,6 +61,18 @@ const conf = {
       name: 'Sainte-Croix',
       placeId: 'place_id:ChIJs3qn5We69EcRUAXC5CqrCAQ'
     },
+    {
+      name: 'Genay',
+      placeId: 'place_id:ChIJUfhMAu2W9EcRgBi75CqrCAQ'
+    },
+    {
+      name: 'Cailloux-sur-Fontaines',
+      placeId: 'place_id:ChIJ8R4JnZGV9EcRjK_6_YPEfOs'
+    },
+    {
+      name: 'Genas',
+      placeId: 'place_id:ChIJsxwEtxLG9EcRkBi75CqrCAQ'
+    },
   ],
   ranges: {
     isAller: (d) => { // 7h15 => 7h45
