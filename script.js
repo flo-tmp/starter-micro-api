@@ -14,14 +14,6 @@ const conf = {
   },
   origins: [ // calcul des placeIds => https://developers.google.com/maps/documentation/places/web-service/place-id
     {
-      name: 'Beynost',
-      placeId: 'place_id:ChIJsd1H7Rq59EcRA9yuP0D38fs'
-    },
-    {
-      name: 'Meyzieu',
-      placeId: 'place_id:ChIJH6mROQnH9EcRIeXqAObPNKo'
-    },
-    {
       name: 'Jonage',
       placeId: 'place_id:ChIJYWOITgK49EcRcRoIOyzL8A8'
     },
@@ -30,16 +22,8 @@ const conf = {
       placeId: 'place_id:ChIJKTNATuW-9EcRgArC5CqrCAQ'
     },
     {
-      name: 'La Boisse',
-      placeId: 'place_id:ChIJLRFeJ6O59EcR4BXC5CqrCAQ'
-    },
-    {
       name: 'Dagneux',
       placeId: 'place_id:ChIJQ0yPcUG39EcR3DETwiDxmLE'
-    },
-    {
-      name: 'Montluel',
-      placeId: 'place_id:ChIJJ8lL4-a59EcRToCv5v9Ghi4'
     },
     {
       name: 'Tramoyes',
